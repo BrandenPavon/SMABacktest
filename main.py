@@ -20,9 +20,9 @@ def backtest(tick1: str, tick2: str, win: str):
     commission_rate = 0.001
     slippage_rate = 0.0005
     holdshares = 100/df.head(n=1)["Adj Close"].item()
-    avgportval = 0
-    avgportreturn = 0
-    avgcagr = 0
+    totalportval = 0
+    totalportreturn = 0
+    totalcagr = 0
     for i in range(10):
         money = 1000
         shares = 0
@@ -46,13 +46,13 @@ def backtest(tick1: str, tick2: str, win: str):
             latestcloseprice = row2._1 portval = money + shares * latestcloseprice
         portreturn = (portval-100)/100
         CAGR = ((portreturn) ** (1/11.5) - 1)*100
-        avgportval += portval
-        avgportreturn += portreturn
-        avgcagr += CAGR
+        totalportval += portval
+        totalportreturn += portreturn
+        totalcagr += CAGR
         print(f'Portfolio value is ${portval:.2f}, buffer: {buffer:.3f}, CAGR: {CAGR:.2f}%, Trades: {trades}, Return: {portreturn*100:.2f}%')
         buffer += 0.005
     holdportval = holdshares * df.tail(n=1)["Adj Close"].item()
-    print(f'The average portfolio value is ${avgportval/10:.2f}, CAGR: {avgcagr/10:.2f}%, Return: {avgportreturn*10:.2f}%')
+    print(f'The average portfolio value is ${totalportval/10:.2f}, CAGR: {totalcagr/10:.2f}%, Return: {totalportreturn*10:.2f}%')
     print(f'Holding would have gave Portfolio value: ${holdportval: .2f}, CAGR: {((holdportval/ 100) ** (1/11.5) - 1)*100}%, Return: {(holdportval-100):.2f}%')
 
 def main():
