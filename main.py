@@ -11,7 +11,7 @@ def backtest(tick1: str, tick2: str, win: str):
     df = pd.read_csv(f"{tick1}_2024.csv", parse_dates=True, index_col=0)
     df2 = pd.read_csv(f"{tick2}_2024.csv", parse_dates=True, index_col=0)
     df["SMA"] = df["Adj Close"].rolling(window=win).mean()
-    money = 100
+    money = 1000
     shares = 0
     latestcloseprice = 0
     buffer = 0.0
@@ -22,7 +22,7 @@ def backtest(tick1: str, tick2: str, win: str):
     totalportreturn = 0
     totalcagr = 0
     for i in range(10):
-        money = 1000
+        money = 100
         shares = 0
         wintrades = 0
         prevportval = 0
