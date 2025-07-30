@@ -2,8 +2,6 @@ import yfinance as yf
 import os
 import pandas as pd
 
-
-
 def backtest(tick1: str, tick2: str, win: str):
     print(f"BACKTEST FOR {tick1} & {tick2}")
     if not os.path.exists(f"{tick1}_2024.csv"):
@@ -26,14 +24,20 @@ def backtest(tick1: str, tick2: str, win: str):
     for i in range(10):
         money = 1000
         shares = 0
+        wintrades = 0
+        prevportval = 0
         trades = 0
         latestcloseprice = 0
+        totalprofit = 0
+        totalloss = 1
+        profitfactor = 0
         for row, row2 in zip(df.itertuples(), df2.itertuples()):
             if (row._1 > row.SMA*(1+buffer)):
                 if (money > 0):
                     adjusted_price = row2._1 * (1 + slippage_rate)
                     trade_value = money * (1 - commission_rate)
                     shares = trade_value / adjusted_price
+                    prevportval = money
                     money = 0
                     trades += 1
             elif (row._1 < row.SMA*(1-buffer)):
@@ -41,15 +45,25 @@ def backtest(tick1: str, tick2: str, win: str):
                     adjusted_price = row2._1 * (1 - slippage_rate)
                     trade_value = shares * adjusted_price * (1 - commission_rate)
                     money = trade_value
+                    if (prevportval < money):
+                        wintrades += 1
+                        totalprofit += money - prevportval
+                    if (prevportval > money):
+                        totalloss += prevportval - money
+                    prevportval = money
                     shares = 0
                     trades += 1
-            latestcloseprice = row2._1 portval = money + shares * latestcloseprice
+            latestcloseprice = row2._1 
+            portval = money + shares * latestcloseprice
         portreturn = (portval-100)/100
         CAGR = ((portreturn) ** (1/11.5) - 1)*100
         totalportval += portval
         totalportreturn += portreturn
         totalcagr += CAGR
+        expectancy = ((wintrades/trades) * (totalprofit/trades)) - ((1-(wintrades/trades))* (totalloss/trades))
         print(f'Portfolio value is ${portval:.2f}, buffer: {buffer:.3f}, CAGR: {CAGR:.2f}%, Trades: {trades}, Return: {portreturn*100:.2f}%')
+        print(f'Win rate is ${100*(wintrades/trades):.2f}%, expectancy: {expectancy:.2f}, profitfactor: {totalprofit/totalloss:.2f}')
+        print('------')
         buffer += 0.005
     holdportval = holdshares * df.tail(n=1)["Adj Close"].item()
     print(f'The average portfolio value is ${totalportval/10:.2f}, CAGR: {totalcagr/10:.2f}%, Return: {totalportreturn*10:.2f}%')
@@ -58,5 +72,6 @@ def backtest(tick1: str, tick2: str, win: str):
 def main():
     while True:
         backtest(input("Enter First Ticker: "), input("Enter Second Ticker: "), input("Window in days: "))
+
 if __name__ == "__main__":
     main()
