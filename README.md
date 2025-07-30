@@ -11,7 +11,7 @@ The program will output the backtest using different buffers for the SMA strateg
 Follow these instructions
 
 
-You will need python
+Dependencies
 * python
 * yfinance
 * pandas
