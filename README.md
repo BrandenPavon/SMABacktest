@@ -14,6 +14,7 @@ Follow these instructions
 You will need python
 * python
 * yfinance
+* pandas
 
 1. Clone the repo
 ```sh
