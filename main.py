@@ -71,7 +71,7 @@ def backtest(tick1: str, tick2: str, win: str):
 
 def main():
     while True:
-        backtest(input("Enter First Ticker: "), input("Enter Second Ticker: "), input("Window in days: "))
+        backtest(input("Enter First Ticker: "), input("Enter Second Ticker: "), input("SMA Window (ex: 200d): "))
 
 if __name__ == "__main__":
     main()
