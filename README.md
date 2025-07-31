@@ -10,7 +10,6 @@ The program will output the backtest using different buffers for the SMA strateg
 
 Follow these instructions
 
-
 Dependencies
 * python
 * yfinance
@@ -52,5 +51,5 @@ Window input for SMA window(ex: 200d)
 <!-- ROADMAP -->
 ## Roadmap
 
-Coming soon
+- [ ] Update to include visualization
 
