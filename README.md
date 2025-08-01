@@ -51,6 +51,6 @@ Window input for SMA window(ex: 200d)
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Make it web based
+- [X] Make it web based
 - [ ] Update to include visualization
 
