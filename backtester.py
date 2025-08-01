@@ -31,6 +31,7 @@ def backtest(tick1: str, tick2: str, win: str):
         totalprofit = 0
         totalloss = 1
         profitfactor = 0
+        indexnum = 0
         for row, row2 in zip(df.itertuples(), df2.itertuples()):
             if (row._1 > row.SMA*(1+buffer)):
                 if (money > 0):
