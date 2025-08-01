@@ -52,5 +52,7 @@ Window input for SMA window(ex: 200d)
 ## Roadmap
 
 - [X] Make it web based
-- [ ] Update to include visualization
+- [X] Update to include visualization
+- [ ] Include commission and slippage rate
+- [ ] Make it pretty
 
