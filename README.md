@@ -53,6 +53,7 @@ Window input for SMA window(ex: 200d)
 
 - [X] Make it web based
 - [X] Update to include visualization
-- [ ] Include commission and slippage rate
+- [ ] Include commission and slippage rate in user input
+- [ ] Make heatmap and allow user to choose static inputs and dynamic inputs
 - [ ] Make it pretty
 
