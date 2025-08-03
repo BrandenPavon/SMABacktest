@@ -5,6 +5,7 @@ SMA backtest project, uses two tickers: one for signal and one to buy in the bac
 
 The program will output the backtest using different buffers for the SMA strategy and average that. Then, it will compare to a buy and hold the first ticker strategy.
 
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -40,13 +41,11 @@ Dependencies
 
 First ticker for SMA signal
 Second ticker to actually buy and sell
-Window input for SMA window(ex: 200d)
 
-```sh
-   First Ticker: SPY
-   Second Ticker: SSO
-   Window in days: 200d
-```
+First input buy buffer in percentage (ex: 2%)
+Second input sell buffer in percentage (ex: 2%)
+Third input slippage rate in percentage (ex: 0.05%)
+Fourth input commission rate in percentage (ex: 0.01%)
 
 <!-- ROADMAP -->
 ## Roadmap
