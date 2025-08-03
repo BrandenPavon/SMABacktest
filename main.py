@@ -6,10 +6,10 @@ import pandas as pd
 
 app = dash.Dash(__name__)
 
-def load_d(ticker: str, ticker2: str, buybuff: str, sellbuff: str):
+def load_d(ticker: str, ticker2: str, buybuff: str, sellbuff: str, slip: str):
     d1 = pd.read_csv(f"{ticker}_2024.csv", parse_dates=True, index_col=0)
     d1["Datetime"] = pd.to_datetime(d1.index)
-    data = backtest(ticker, ticker2, "200d", float(buybuff)*0.01, float(sellbuff)*0.01)
+    data = backtest(ticker, ticker2, "200d", float(buybuff)*0.01, float(sellbuff)*0.01, float(slip)*0.01)
     frame1 = pd.DataFrame(data[0], columns=["Strategy"], index=d1["Datetime"])
     frame2 = pd.DataFrame(data[1], columns=["Hold"], index=d1["Datetime"])
     frame1["Date"] = pd.to_datetime(frame1.index)
@@ -36,6 +36,12 @@ app.layout = html.Div([
         value="2",
         placeholder="2"
     ),
+    dcc.Input(
+        id="slippage-input",
+        type="number",
+        value="0.05",
+        placeholder="0.05"
+    ),
     #dcc.Graph(animate=True, id="graph1", animation_options={ "frame" : { "redraw" : True}, "transition": {"duration": 5, "ease": "linear"}}),
     dcc.Graph(figure={}, id="graph1"),
 ])
@@ -45,10 +51,11 @@ app.layout = html.Div([
     Input('newtick', 'value'),
     Input('newtick2', 'value'),
     Input('buybuffer-input', 'value'),
-    Input('sellbuffer-input', 'value')
+    Input('sellbuffer-input', 'value'),
+    Input('slippage-input', 'value')
 )
-def update_ticker(ticker: str, ticker2: str, buybuff: str, sellbuff: str):
-    fig = px.line(data_frame=load_d(ticker, ticker2, buybuff, sellbuff), x="Date", y=["Strategy", "Hold"])
+def update_ticker(ticker: str, ticker2: str, buybuff: str, sellbuff: str, slip: str):
+    fig = px.line(data_frame=load_d(ticker, ticker2, buybuff, sellbuff, slip), x="Date", y=["Strategy", "Hold"])
     return fig
 
 if __name__ == "__main__":

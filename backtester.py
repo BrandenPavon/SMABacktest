@@ -2,7 +2,7 @@ import yfinance as yf
 import os
 import pandas as pd
 
-def backtest(tick1: str, tick2: str, win: str, buy_buff: float, sell_buff: float):
+def backtest(tick1: str, tick2: str, win: str, buy_buff: float, sell_buff: float, slip: float):
     print(f"BACKTEST FOR {tick1} & {tick2}")
     if not os.path.exists(f"{tick1}_2024.csv"):
         yf.download(f"{tick1}", start="2014-01-01", end="2025-07-01", auto_adjust=False, multi_level_index=False).to_csv(f'{tick1}_2024.csv', index=True)
@@ -15,7 +15,7 @@ def backtest(tick1: str, tick2: str, win: str, buy_buff: float, sell_buff: float
     shares = 0
     latestcloseprice = 0
     commission_rate = 0.001
-    slippage_rate = 0.0005
+    slippage_rate = slip 
     holdshares = 100/df.head(n=1)["Adj Close"].item()
     totalportval = 0
     totalportreturn = 0
