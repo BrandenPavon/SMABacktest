@@ -78,6 +78,3 @@ def backtest(tick1: str, tick2: str, win: str, params: dict):
     print(f'The average portfolio value is ${totalportval/10:.2f}, CAGR: {totalcagr/10:.2f}%, Return: {totalportreturn*10:.2f}%')
     print(f'Holding would have gave Portfolio value: ${holdportval: .2f}, CAGR: {((holdportval/ 100) ** (1/11.5) - 1)*100:.2f}%, Return: {(holdportval-100):.2f}%')
     return [stratarr, holdarr]
-
-if __name__ == "__main__":
-    backtest("QQQ", "TQQQ", "200d", 0.02)
