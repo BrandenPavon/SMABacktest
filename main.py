@@ -42,6 +42,12 @@ app.layout = html.Div([
         value="0.05",
         placeholder="0.05"
     ),
+    dcc.Input(
+        id="commrate-input",
+        type="number",
+        value="0.05",
+        placeholder="0.05"
+    ),
     #dcc.Graph(animate=True, id="graph1", animation_options={ "frame" : { "redraw" : True}, "transition": {"duration": 5, "ease": "linear"}}),
     dcc.Graph(figure={}, id="graph1"),
 ])
@@ -52,10 +58,11 @@ app.layout = html.Div([
     Input('newtick2', 'value'),
     Input('buybuffer-input', 'value'),
     Input('sellbuffer-input', 'value'),
-    Input('slippage-input', 'value')
+    Input('slippage-input', 'value'),
+    Input('commrate-input', 'value')
 )
-def update_ticker(ticker: str, ticker2: str, buybuff: str, sellbuff: str, slip: str):
-    fig = px.line(data_frame=load_d(ticker, ticker2, {"buy_buff": buybuff, "sell_buff": sellbuff, "slippage": slip}), x="Date", y=["Strategy", "Hold"])
+def update_ticker(ticker: str, ticker2: str, buybuff: str, sellbuff: str, slip: str, cr: str):
+    fig = px.line(data_frame=load_d(ticker, ticker2, {"buy_buff": buybuff, "sell_buff": sellbuff, "slippage": slip, "commrate": cr}), x="Date", y=["Strategy", "Hold"])
     return fig
 
 if __name__ == "__main__":
