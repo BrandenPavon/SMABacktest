@@ -6,6 +6,9 @@ import pandas as pd
 
 app = dash.Dash(__name__)
 
+def returntickers():
+    return ["QQQ", "QLD", "TQQQ", "SPY", "SSO", "UPRO"]
+
 def load_d(ticker: str, ticker2: str, params: dict):
     d1 = pd.read_csv(f"{ticker}_2024.csv", parse_dates=True, index_col=0)
     d1["Datetime"] = pd.to_datetime(d1.index)
@@ -21,8 +24,8 @@ def load_d(ticker: str, ticker2: str, params: dict):
 
 app.layout = html.Div([
     html.Div(children="test"),
-    dcc.Dropdown(id="newtick", options=["QQQ", "QLD", "TQQQ", "SPY", "SSO", "UPRO"], value="QQQ", placeholder="QQQ"),
-    dcc.Dropdown(id="newtick2", options=["QQQ", "QLD", "TQQQ", "SPY", "SSO", "UPRO"], value="TQQQ", placeholder="TQQQ"),
+    dcc.Dropdown(id="newtick", options=returntickers(), value="QQQ", placeholder="QQQ"),
+    dcc.Dropdown(id="newtick2", options=returntickers(), value="TQQQ", placeholder="TQQQ"),
     dcc.Dropdown(id="newY", options=["Adj Close", "Close", "High", "Low", "Open", "Volume"], value="Adj Close", placeholder="Adj Close"),
     dcc.Input(
         id="buybuffer-input",
