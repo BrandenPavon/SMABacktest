@@ -6,10 +6,10 @@ import pandas as pd
 
 app = dash.Dash(__name__)
 
-def load_d(ticker: str, ticker2: str, buybuff: str, sellbuff: str, slip: str):
+def load_d(ticker: str, ticker2: str, params: dict):
     d1 = pd.read_csv(f"{ticker}_2024.csv", parse_dates=True, index_col=0)
     d1["Datetime"] = pd.to_datetime(d1.index)
-    data = backtest(ticker, ticker2, "200d", float(buybuff)*0.01, float(sellbuff)*0.01, float(slip)*0.01)
+    data = backtest(ticker, ticker2, "200d", params)
     frame1 = pd.DataFrame(data[0], columns=["Strategy"], index=d1["Datetime"])
     frame2 = pd.DataFrame(data[1], columns=["Hold"], index=d1["Datetime"])
     frame1["Date"] = pd.to_datetime(frame1.index)
@@ -55,7 +55,7 @@ app.layout = html.Div([
     Input('slippage-input', 'value')
 )
 def update_ticker(ticker: str, ticker2: str, buybuff: str, sellbuff: str, slip: str):
-    fig = px.line(data_frame=load_d(ticker, ticker2, buybuff, sellbuff, slip), x="Date", y=["Strategy", "Hold"])
+    fig = px.line(data_frame=load_d(ticker, ticker2, {"buy_buff": buybuff, "sell_buff": sellbuff, "slippage": slip}), x="Date", y=["Strategy", "Hold"])
     return fig
 
 if __name__ == "__main__":
