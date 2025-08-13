@@ -7,7 +7,6 @@ def backtest(tick1: str, tick2: str, win: str, params: dict):
     sell_buff = float(params.get("sell_buff"))*0.01
     commrate = float(params.get("commrate"))*0.01
     slip = float(params.get("slippage"))*0.01
-    print(buy_buff, sell_buff, slip)
     print(f"BACKTEST FOR {tick1} & {tick2}")
     if not os.path.exists(f"{tick1}_2024.csv"):
         yf.download(f"{tick1}", start="2014-01-01", end="2025-07-01", auto_adjust=False, multi_level_index=False).to_csv(f'{tick1}_2024.csv', index=True)
