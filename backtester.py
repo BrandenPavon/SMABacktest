@@ -64,6 +64,7 @@ def backtest(tick1: str, tick2: str, win: str, params: dict):
         holdarr.insert(indexnum, holdportval)
         stratarr.insert(indexnum, portval)
         indexnum += 1
+    if trades == 0: return
     portreturn = (portval-100)/100
     CAGR = ((portreturn) ** (1/11.5) - 1)*100
     totalportval += portval

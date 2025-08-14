@@ -20,7 +20,7 @@ def returntickers():
 def load_d(ticker, ticker2, params):
     d1 = pd.read_csv(f"{ticker}_2024.csv", parse_dates=True, index_col=0)
     d1["Datetime"] = pd.to_datetime(d1.index)
-    data = backtest(ticker, ticker2, "200d", params)
+    data = backtest(ticker, ticker2, f"{params["window"]}d", params)
     f1 = pd.DataFrame(data[0], columns=["Strategy"], index=d1["Datetime"])
     f2 = pd.DataFrame(data[1], columns=["Hold"], index=d1["Datetime"])
     f1["Date"] = pd.to_datetime(f1.index)
@@ -49,6 +49,8 @@ app.layout = dbc.Container([
                     #    value="Adj Close",
                     #    className="mb-3"
                     #),
+                    html.H5("SMA Window in days", className="card-title"),
+                    dbc.Input(id="window-input", type="number", value=200, placeholder="SMA Window", className="mb-2"),
                     html.H5("Buy Buffer in % (e.g 2%)", className="card-title"),
                     dbc.Input(id="buybuffer-input", type="number", value=2, placeholder="Buy buffer", className="mb-2"),
                     html.H5("Sell Buffer in % (e.g 2%)", className="card-title"),
@@ -83,6 +85,7 @@ app.layout = dbc.Container([
     [
         Input('newtick', 'value'),
         Input('newtick2', 'value'),
+        Input('window-input', 'value'),
         Input('buybuffer-input', 'value'),
         Input('sellbuffer-input', 'value'),
         Input('slippage-input', 'value'),
@@ -90,16 +93,19 @@ app.layout = dbc.Container([
         Input(ThemeSwitchAIO.ids.switch("theme"), "value")
     ]
 )
-def update_graph(ticker, ticker2, buybuff, sellbuff, slip, commr, theme_toggle):
+def update_graph(ticker, ticker2, window, buybuff, sellbuff, slip, commr, theme_toggle):
+    wd = window 
     bb = buybuff
     sb = sellbuff
     sp = slip
     cr = commr 
+    wd = wd if wd is not None else "200"
     bb = bb if bb is not None else "2"
     sb = sb if sb is not None else "2"
     sp = sp if sp is not None else "0.05"
     cr = cr if cr is not None else "0.05"
     df = load_d(ticker, ticker2, {
+        "window": wd,
         "buy_buff": bb,
         "sell_buff": sb,
         "slippage": sp,
@@ -111,5 +117,5 @@ def update_graph(ticker, ticker2, buybuff, sellbuff, slip, commr, theme_toggle):
     return fig
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
 
