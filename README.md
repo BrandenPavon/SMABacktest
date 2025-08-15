@@ -6,6 +6,8 @@ SMA backtest project, uses two tickers: one for signal and one to buy in the bac
 The program will output the backtest visualized with a graph using different buffers for the SMA strategy and average that. Then, it will compare to a buy and hold the first ticker strategy.
 
 
+![My Remote Image](https://bpsite.xyz/static/smabacktest1.png)
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
