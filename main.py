@@ -18,9 +18,9 @@ def returntickers():
     return ["QQQ", "QLD", "TQQQ", "SPY", "SSO", "UPRO"]
 
 def load_d(ticker, ticker2, params):
+    data = backtest(ticker, ticker2, f"{params["window"]}d", params)
     d1 = pd.read_csv(f"{ticker}_2024.csv", parse_dates=True, index_col=0)
     d1["Datetime"] = pd.to_datetime(d1.index)
-    data = backtest(ticker, ticker2, f"{params["window"]}d", params)
     f1 = pd.DataFrame(data[0], columns=["Strategy"], index=d1["Datetime"])
     f2 = pd.DataFrame(data[1], columns=["Hold"], index=d1["Datetime"])
     f1["Date"] = pd.to_datetime(f1.index)
