@@ -14,9 +14,7 @@ The program will output the backtest visualized with a graph using different buf
 Follow these instructions
 
 Dependencies
-* python
-* yfinance
-* pandas
+* python3.13
 
 1. Clone the repo
 ```sh
