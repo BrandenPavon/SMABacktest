@@ -53,7 +53,7 @@ Fourth input commission rate in percentage (ex: 0.01%)
 - [X] Make it web based
 - [X] Update to include visualization
 - [X] Include commission and slippage rate in user input
-- [ ] Make heatmap and allow user to choose static inputs and dynamic inputs
+- [X] Make it pretty
+- [ ] Implement OOP
 - [ ] Include a file that allows users to choose custom ticker symbols
-- [ ] Make it pretty
 
