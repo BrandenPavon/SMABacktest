@@ -55,5 +55,6 @@ Fourth input commission rate in percentage (ex: 0.01%)
 - [X] Include commission and slippage rate in user input
 - [X] Make it pretty
 - [ ] Implement OOP
+- [ ] Implement multithreading
 - [ ] Include a file that allows users to choose custom ticker symbols
 
