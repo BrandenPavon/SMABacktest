@@ -3,6 +3,13 @@ import os
 import pandas as pd
 
 
+class Portfolio:
+     def __init__(self):
+        pass   
+class BacktestEngine:
+    def __init__(self):
+        pass
+
 
 def backtest(tick1: str, tick2: str, win: str, params: dict):
     buy_buff = float(params.get("buy_buff"))*0.01
