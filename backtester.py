@@ -2,6 +2,13 @@ import yfinance as yf
 import os
 import pandas as pd
 
+class DataLoad:
+     def __init__(self):
+        pass   
+
+class Strategy:
+    def __init__(self):
+        pass
 
 class Portfolio:
      def __init__(self):
